@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import BookmarkButton from "../../BookmarkButton"; // Import the core bookmark module securely
 
 const LatestPostsComponent = () => {
-  const { data, isLoading } = useGetLatestListsQuery(undefined);
+  const { data, isLoading, isError } = useGetLatestListsQuery(undefined);
   const navigate = useNavigate();
 
   // Dynamic reading time calculation matching your exact feature request specs
@@ -20,11 +20,22 @@ const LatestPostsComponent = () => {
   if (isLoading) {
     return <LoadingAnimation />;
   }
+
+  if (isError) {
+    return (
+      <div className="text-slate-900 dark:text-slate-100">
+        <h2 className="text-2xl font-bold mb-6">Latest Posts</h2>
+        <div className="rounded-lg border border-red-200 dark:border-red-900/70 bg-red-50 dark:bg-red-900/20 px-4 py-5 text-red-700 dark:text-red-400">
+          Failed to load latest posts. Please try again later.
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="text-slate-900 dark:text-slate-100">
       <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6">Latest Posts</h2>
       <div className="space-y-6">
-        {data?.posts?.length ?? 0 > 0 ? (
+        {(data?.posts?.length ?? 0) > 0 ? (
           data?.posts?.map((post: Post) => (
             <div
               key={post._id}
