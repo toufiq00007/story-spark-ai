@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
+import { resolveSocketUrl } from "../../helpers/socket-url";
 
 declare global {
   interface Window {
@@ -8,7 +9,7 @@ declare global {
   }
 }
 
-const BACKEND_URL = import.meta.env.VITE_SOCKET_URL || import.meta.env.VITE_BASE_URL?.replace("/api/v1", "") || "http://localhost:5000";
+const BACKEND_URL = resolveSocketUrl();
 
 export default function CollabHome() {
   const navigate = useNavigate();
