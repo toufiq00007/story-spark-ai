@@ -145,15 +145,20 @@ const router = createBrowserRouter([
         element: <DashboardLayout />, 
         children: [
           { index: true, element: <DashboardComponent /> },
-          { path: "analytics", element: <AnalyticsPage /> },
-          { path: "post-lists", element: <PostListsComponent /> },
           { path: "profile", element: <ProfileComponent /> },
           { path: "writers", element: <WriterApplicationComponent /> },
           { path: "users", element: <UserComponent /> },
-          // Independent structural guard layer checking high-tier Admin roles
           {
-            element: <ProtectedRoute allowedRoles={ELEVATED_ADMIN_ROLES} />,
+            element: <ProtectedRoute allowedRoles={[USER_ROLE.USER, USER_ROLE.WRITER]} />,
             children: [{ path: "settings", element: <SettingComponent /> }],
+          },
+          {
+            element: <ProtectedRoute allowedRoles={[USER_ROLE.WRITER]} />,
+            children: [{ path: "analytics", element: <AnalyticsPage /> }],
+          },
+          {
+            element: <ProtectedRoute allowedRoles={[USER_ROLE.ADMIN, USER_ROLE.SUPER_ADMIN, USER_ROLE.WRITER]} />,
+            children: [{ path: "post-lists", element: <PostListsComponent /> }],
           },
         ],
       },

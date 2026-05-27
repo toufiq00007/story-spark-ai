@@ -21,22 +21,18 @@ export const menuItems: MenuItem[] = [
     ],
   },
   {
-   name: "Analytics",
-   icon: "fas fa-chart-line",
-   path: "/dashboard/analytics",
-   roles: [
-     USER_ROLE.USER,
-     USER_ROLE.ADMIN,
-     USER_ROLE.SUPER_ADMIN,
-     USER_ROLE.WRITER,
-  ],
-},
+    name: "Analytics",
+    icon: "fas fa-chart-line",
+    path: "/dashboard/analytics",
+    roles: [
+      USER_ROLE.WRITER,
+    ],
+  },
   {
     name: "Post Lists",
     icon: "fas fa-puzzle-piece",
     path: "/dashboard/post-lists",
     roles: [
-      USER_ROLE.USER,
       USER_ROLE.ADMIN,
       USER_ROLE.SUPER_ADMIN,
       USER_ROLE.WRITER,
@@ -55,6 +51,12 @@ export const menuItems: MenuItem[] = [
     name: "Settings",
     icon: "fas fa-cog",
     path: "/dashboard/settings",
+    roles: [USER_ROLE.USER, USER_ROLE.WRITER],
+  },
+  {
+    name: "Approval Requests",
+    icon: "fas fa-user-check",
+    path: "/dashboard/writers",
     roles: [USER_ROLE.ADMIN, USER_ROLE.SUPER_ADMIN],
   },
   {

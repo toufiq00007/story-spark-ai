@@ -46,7 +46,7 @@ const updateApplicationStatus = catchAsync(async (req: Request, res: Response) =
     throw new ApiError(httpStatus.UNAUTHORIZED, "Admin ID could not be extracted.");
   }
 
-  const result = await WriterApplicationService.updateApplicationStatus(id, status, adminId);
+  const result = await WriterApplicationService.updateApplicationStatus(id as string, status as "approved" | "rejected", adminId as string);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
