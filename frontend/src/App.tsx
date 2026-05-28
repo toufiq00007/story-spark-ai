@@ -51,6 +51,7 @@ import ContributorsComponent from "./components/footer/contributors";
 import BranchingStory from "./components/stories/BranchingStory";
 import ReportBug from "./components/report-bug/ReportBug";
 import AnalyticsPage from "./components/dashboard/analytics/analytics.page";
+import StoryWorkspace from "./components/story/StoryWorkspace";
 
 // =========================================================================
 // PROTECTED ROUTE — supports both wrapper pattern (element prop) and
@@ -97,7 +98,8 @@ const router = createBrowserRouter([
       { path: "templates", element: <TemplatesComponent /> },
       { path: "writing-assistant", element: <WritingAssistantComponent /> },
       { path: "story-inspiration", element: <StoryInspirationWrapper /> },
-      { path: "stories", element: <BranchingStory /> },
+      { path: "stories", element: <StoriesComponent /> },
+      { path: "story-workspace", element: <StoryWorkspace /> },
       { path: "login", element: <LoginComponent /> },
       { path: "signup", element: <SignUpComponent /> },
       { path: "pricing", element: <PricingComponent /> },
