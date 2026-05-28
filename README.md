@@ -36,7 +36,7 @@
 
 ## About 🚀
 
-- story-spark-ai - [Website](https://storysparkai.vercel.app/)
+- story-spark-ai
 - **`StorySparkAi`** is an open-source platform designed to empower creative minds by generating and showcasing AI-crafted stories from user prompts in a simple, engaging way.
 - With **`StorySparkAi`**, users can input an idea, explore multiple story variations, save their favorites, and leverage AI analysis to enhance their creative writing journey.
 
