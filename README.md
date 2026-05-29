@@ -1,25 +1,14 @@
 <div align="center">
 
-<p align="center">
-   <a href="https://github.com/ronisarkarexe/story-spark-ai/blob/master/LICENSE" target="blank">
-   <img src="https://img.shields.io/github/license/ronisarkarexe/story-spark-ai?style=for-the-badge&logo=appveyor" alt="License" />
-   </a>
-   <a href="https://github.com/ronisarkarexe/story-spark-ai/fork" target="blank">
-   <img src="https://img.shields.io/github/forks/ronisarkarexe/story-spark-ai?style=for-the-badge&logo=appveyor" alt="Forks"/>
-   </a>
-   <a href="https://github.com/ronisarkarexe/story-spark-ai/stargazers" target="blank">
-   <img src="https://img.shields.io/github/stars/ronisarkarexe/story-spark-ai?style=for-the-badge&logo=appveyor" alt="Star"/>
-   </a>
-   <a href="https://github.com/ronisarkarexe/story-spark-ai/issues" target="blank">
-   <img src="https://img.shields.io/github/issues/ronisarkarexe/story-spark-ai.svg?style=for-the-badge&logo=appveyor" alt="Click Vote Issue"/>
-   </a>
-   <a href="https://github.com/ronisarkarexe/story-spark-ai/pulls" target="blank">
-   <img src="https://img.shields.io/github/issues-pr/ronisarkarexe/story-spark-ai.svg?style=for-the-badge&logo=appveyor" alt="Click Vote Open Pull Request"/>
-   </a>
-   <a href="https://github.com/ronisarkarexe/story-spark-ai" target="blank">
-   <img src="https://komarev.com/ghpvc/?username=ronisarkarexe&repo=story-spark-ai&style=for-the-badge&color=blue" alt="Repository Views"/>
-   </a>
-</p>
+<br/>
+
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-storysparkai.vercel.app-6c3ff7?style=for-the-badge&logoColor=white)](https://storysparkai.vercel.app/)
+[![License: MIT](https://img.shields.io/github/license/ronisarkarexe/story-spark-ai?style=for-the-badge&color=22c55e)](https://github.com/ronisarkarexe/story-spark-ai/blob/master/LICENSE)
+[![Forks](https://img.shields.io/github/forks/ronisarkarexe/story-spark-ai?style=for-the-badge&color=3b82f6)](https://github.com/ronisarkarexe/story-spark-ai/fork)
+[![Issues](https://img.shields.io/github/issues/ronisarkarexe/story-spark-ai?style=for-the-badge&color=ef4444)](https://github.com/ronisarkarexe/story-spark-ai/issues)
+[![PRs](https://img.shields.io/github/issues-pr/ronisarkarexe/story-spark-ai?style=for-the-badge&color=8b5cf6)](https://github.com/ronisarkarexe/story-spark-ai/pulls)
+
+<br/>
 <img src="https://img.shields.io/badge/Story-Spark_AI-6c3ff7?style=for-the-badge&labelColor=0d0d0d&color=6c3ff7" alt="StorySpark AI" height="40"/>
 
 # ✨ StorySpark AI
