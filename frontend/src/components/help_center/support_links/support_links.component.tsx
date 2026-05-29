@@ -17,21 +17,18 @@ const SupportLinks: FC<SupportLinksProps> = ({ links }) => {
       transition={{ duration: 0.5 }}
       aria-labelledby="support-heading"
     >
-      {/* Header */}
-      <div className="mb-12">
-        <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-4 py-1.5 text-sm font-medium text-indigo-600 dark:text-indigo-300">
+      <div className="mb-10 text-center">
+        <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-4 py-1.5 text-sm font-medium text-indigo-600 dark:text-indigo-300 mb-4">
           <i className="fa-solid fa-headset"></i>
           COMMUNITY & SUPPORT
         </div>
-
         <h2
           id="support-heading"
-          className="mt-5 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white"
+          className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-gray-300"
         >
-          Need More Help?
+          Support & Community
         </h2>
-
-        <p className="mt-4 max-w-2xl text-slate-600 dark:text-slate-400 leading-relaxed">
+        <p className="mt-4 max-w-2xl mx-auto text-slate-600 dark:text-gray-400 leading-relaxed font-medium">
           Connect with the StorySparkAI community, report issues, explore
           documentation, and collaborate with contributors worldwide.
       <div className="text-center mb-10">
@@ -89,7 +86,9 @@ const SupportLinks: FC<SupportLinksProps> = ({ links }) => {
               </p>
 
             </div>
-          </div>
+          </motion.a>
+        ))}
+      </div>
 
           {/* GitHub CTA */}
           <a

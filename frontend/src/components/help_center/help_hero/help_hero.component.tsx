@@ -1,19 +1,14 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import HelpSearchBar from "../help_search_bar/help_search_bar.component";
 
 interface HelpHeroProps {
-  searchQuery: string;
-  onSearchChange: (value: string) => void;
+  searchQuery?: string;
+  onSearchChange?: (value: string) => void;
   resultCount?: number;
 }
 
-const HelpHero: FC<HelpHeroProps> = ({
-  searchQuery,
-  onSearchChange,
-  resultCount,
-}) => {
+const HelpHero: FC<HelpHeroProps> = () => {
   return (
     <section
       id="help-hero"
@@ -32,7 +27,7 @@ const HelpHero: FC<HelpHeroProps> = ({
       />
 
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
         style={{
           backgroundImage:
             "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
@@ -48,11 +43,8 @@ const HelpHero: FC<HelpHeroProps> = ({
           transition={{ duration: 0.5 }}
         >
           <Link to="/" className="inline-block mb-10">
-            <div className="group flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-300 shadow-lg">
-              <i
-                className="fa-solid fa-arrow-left transition-transform duration-300 group-hover:-translate-x-1"
-                aria-hidden="true"
-              ></i>
+            <div className="group flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/10 transition-all duration-300 shadow-sm">
+              <i className="fa-solid fa-arrow-left transition-transform duration-300 group-hover:-translate-x-1" aria-hidden="true"></i>
               <span className="font-medium">Back to Home</span>
             </div>
           </Link>
@@ -94,19 +86,12 @@ const HelpHero: FC<HelpHeroProps> = ({
 
           </div>
 
-          {/* Heading */}
           <motion.h1
             id="help-center-title"
             className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-r dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 mb-6 tracking-tight"
           >
-            <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-xl">
-              <h3 className="text-3xl font-bold text-white mb-1">24/7</h3>
-              <p className="text-sm text-slate-400">
-                Community Support
-              </p>
-            </div>
-
-
+            How can we help you today?
+          </motion.h1>
 
           <p className="text-lg text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
 

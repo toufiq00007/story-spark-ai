@@ -121,11 +121,9 @@ const FAQAccordion: FC<FAQAccordionProps> = ({ items }) => {
         </p>
       </div>
 
-      <div className="space-y-3" role="list">
-        {items.map((item) => {
-          const isOpen = openId === item.id;
-          const panelId = `${baseId}-${item.id}-panel`;
-          const buttonId = `${baseId}-${item.id}-button`;
+      <div className="space-y-5 max-w-3xl mx-auto">
+        {items.map((faq, index) => {
+          const isOpen = openIndex === index;
 
           return (
             <article
@@ -133,16 +131,18 @@ const FAQAccordion: FC<FAQAccordionProps> = ({ items }) => {
               role="listitem"
               className="bg-white dark:bg-blue-500/10 border border-slate-200 dark:border-white/5 rounded-xl overflow-hidden shadow-sm transition-colors hover:border-indigo-500/30"
             >
-              <h3>
-                <button
-                  onClick={() => toggleAccordion(index)}
-                  className="
-                    w-full flex items-center justify-between
-                    px-6 py-5 text-left
-                    transition-all duration-300
-                    hover:bg-slate-50 dark:hover:bg-white/[0.03]
-                    cursor-pointer
-                  "
+              <button
+                onClick={() => toggleAccordion(index)}
+                className="w-full flex items-center justify-between px-6 py-5 text-left transition-all duration-300 hover:bg-slate-50 dark:hover:bg-white/[0.03] cursor-pointer"
+              >
+                <span className="text-slate-900 dark:text-slate-200 font-bold pr-4">
+                  {faq.question}
+                </span>
+                <span
+                  className={`flex-shrink-0 w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-500/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400 transition-transform duration-300 ${
+                    isOpen ? "rotate-180" : ""
+                  }`}
+                  aria-hidden="true"
                 >
                   <span className="text-slate-800 dark:text-gray-300 font-medium pr-4">
                     {item.question}
@@ -154,27 +154,11 @@ const FAQAccordion: FC<FAQAccordionProps> = ({ items }) => {
                     }`}
                     aria-hidden="true"
                   >
-                    <i className="fa-solid fa-chevron-down"></i>
-                  </motion.div>
-                </button>
-
-                {/* Answer */}
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div className="px-6 pb-6">
-                        <div className="pl-[60px]">
-                          <div className="rounded-2xl bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-white/5 p-5">
-                            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                              {faq.answer}
-                            </p>
-                          </div>
-                        </div>
+                    <div className="px-6 pb-6">
+                      <div className="rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-white/5 p-4 mt-2">
+                        <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                          {faq.answer}
+                        </p>
                       </div>
                     </motion.div>
                   )}
@@ -216,7 +200,7 @@ const FAQAccordion: FC<FAQAccordionProps> = ({ items }) => {
           );
         })}
       </div>
-    </motion.section>
+    </section>
   );
 };
 

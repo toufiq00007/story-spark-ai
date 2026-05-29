@@ -41,7 +41,7 @@ const SetupGuide: FC<SetupGuideProps> = ({ steps }) => {
           aria-hidden="true"
         />
 
-        <ol className="space-y-8">
+        <ol className="space-y-8 relative z-10">
           {steps.map((step, index) => (
             <li
               key={step.step}
