@@ -325,13 +325,13 @@ const SignUpComponent = () => {
               Join StorySparkAI and begin your creative journey.
             </p>
           )}
-
+          <body className="overflow-x-hidden"></body>
           {!showOtpField && (
             <div className="relative mb-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-slate-700/50"></div>
               </div>
-              <div className="relative flex justify-center text-sm">
+             <div className="relative flex justify-center text-sm">
                 <span className="bg-white dark:bg-slate-800/60 text-slate-800 dark:text-slate-400 font-semibold">
                   SIGN UP WITH EMAIL
                 </span>
@@ -340,7 +340,11 @@ const SignUpComponent = () => {
           )}
 
           {!showOtpField ? (
-            <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+
+            <form className="space-y-5" onSubmit={handleSubmit(onSubmit)} noValidate> 
+
+            <form className="space-y-5 w-full max-w-full min-w-0" onSubmit={handleSubmit(onSubmit)}>
+
               <SSInput
                 label="Name"
                 name="name"
@@ -352,8 +356,8 @@ const SignUpComponent = () => {
                 validation={{
                   required: "Name is required",
                 minLength: {
-                value: 2,
-                message: "Name must be at least 2 characters",
+                value: 3,
+                message: "Name must be at least 3 characters",
                 },
                   pattern: {
                     value: /^[A-Za-z0-9\s._]+$/,
@@ -434,7 +438,7 @@ const SignUpComponent = () => {
                 type="password"
                 placeholder="Confirm your password"
                 required={true}
-                icon="fi fi-rr-eye"
+                icon="fi fi-rr-lock" 
                 register={register}
                 autoComplete="new-password"
                 error={errors.confirmPassword}
@@ -443,7 +447,7 @@ const SignUpComponent = () => {
               <SSButton text="Sign Up" type="submit" isLoading={isBusy} />
             </form>
           ) : (
-            <div className="space-y-5">
+            <div className="space-y-5 w-full max-w-full min-w-0">
               <SSInput
                 label="OTP"
                 name="otp"
@@ -502,7 +506,6 @@ const SignUpComponent = () => {
           )}
         </div>
       </div>
-
       <Toaster position="top-right" reverseOrder={false} />
     </div>
     </div>
