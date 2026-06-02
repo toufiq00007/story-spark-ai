@@ -45,10 +45,13 @@ const SSInput = <T extends FieldValues>({
       <div className="relative w-full">
         {/* Left Icon */}
         {icon && (
+
           <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-500 pointer-events-none">
+
             <i className={icon}></i>
           </span>
         )}
+
 
         {/* The SINGLE Corrected Input Field with Bulletproof Padding */}
         <input
@@ -85,6 +88,7 @@ const SSInput = <T extends FieldValues>({
       {error && (
         <p className="text-red-500 text-sm mt-2">{error.message}</p>
       )}
+
     </div>
   );
 };
