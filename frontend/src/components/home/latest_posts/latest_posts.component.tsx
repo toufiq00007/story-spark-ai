@@ -21,7 +21,7 @@ const LatestPostsComponent = () => {
   if (isError) {
     return (
       <section className="mb-12 text-slate-100">
-        <h2 className="mb-6 text-2xl font-bold">Latest Posts</h2>
+        <h2 className="mb-6 text-2xl font-bold text-slate-900 dark:text-slate-100">Latest Posts</h2>
         <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-5 text-center text-red-200">
           <p className="mb-3 font-semibold">Failed to load latest posts.</p>
           <button
@@ -53,8 +53,8 @@ const LatestPostsComponent = () => {
   };
 
   return (
-    <section className="text-slate-100">
-      <h2 className="mb-6 text-2xl font-bold">Latest Posts</h2>
+    <section className="text-slate-900 dark:text-slate-100">
+      <h2 className="mb-6 text-2xl font-bold text-slate-900 dark:text-slate-100">Latest Posts</h2>
       <div className="space-y-3">
         {visiblePosts.length > 0 ? (
           visiblePosts.map((post: Post) => {
