@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaXTwitter } from "react-icons/fa6";
 import logo from "../../assets/logoNew.png";
@@ -9,6 +9,24 @@ const FooterComponent = () => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const successTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (successTimerRef.current !== null) {
+        window.clearTimeout(successTimerRef.current);
+      }
+    };
+  }, []);
+
+  const clearFeedback = () => {
+    if (successTimerRef.current !== null) {
+      window.clearTimeout(successTimerRef.current);
+      successTimerRef.current = null;
+    }
+    setStatus("idle");
+    setMessage("");
+  };
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,6 +51,14 @@ const FooterComponent = () => {
         setStatus("success");
         setMessage("🎉 Subscribed successfully!");
         setEmail("");
+        if (successTimerRef.current !== null) {
+          window.clearTimeout(successTimerRef.current);
+        }
+        successTimerRef.current = window.setTimeout(() => {
+          setStatus("idle");
+          setMessage("");
+          successTimerRef.current = null;
+        }, 4000);
       } else {
         setStatus("error");
         setMessage(data.message || "Something went wrong.");
@@ -243,7 +269,12 @@ const FooterComponent = () => {
               <input
                   type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (status === "success" || status === "error") {
+                        clearFeedback();
+                      }
+                    }}
                     placeholder="you@storyspark.ai"
                     disabled={status === "loading"}
                     className="w-full h-full bg-transparent text-[13px] text-white placeholder-slate-500 focus:outline-none"
