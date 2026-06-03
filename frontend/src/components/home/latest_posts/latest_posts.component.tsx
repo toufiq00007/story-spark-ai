@@ -1,15 +1,23 @@
-import { useGetLatestListsQuery } from "../../../redux/apis/post.api";
-import { Post } from "../../../models/post";
-import LoadingAnimation from "../../loading/loading.component";
-import SSProfile from "../../ui-component/ss-profile/ss-profile";
-import { formatDateShort } from "../../../utils/time-formate";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BookmarkButton from "../../BookmarkButton";
+import { Post } from "../../../models/post";
+import { useGetLatestListsQuery } from "../../../redux/apis/post.api";
+import LoadingAnimation from "../../loading/loading.component";
+
+const INITIAL_VISIBLE_COUNT = 6;
 
 const LatestPostsComponent = () => {
   const { data, isLoading, isError, refetch } = useGetLatestListsQuery(undefined);
   const navigate = useNavigate();
+  const [showAllPosts, setShowAllPosts] = useState(false);
+  const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
+
+  useEffect(() => {
+    setShowAllPosts(false);
+  }, [data?.posts]);
+
   if (isLoading) return <LoadingAnimation />;
+
   if (isError) {
     return (
       <section className="mb-12 text-slate-100">
@@ -26,6 +34,23 @@ const LatestPostsComponent = () => {
       </section>
     );
   }
+
+  const seenIds = new Set<string>();
+  const uniquePosts = (data?.posts ?? []).filter((post: Post) => {
+    if (!post?._id || seenIds.has(post._id)) return false;
+    seenIds.add(post._id);
+    return true;
+  });
+
+  const shouldShowLoadMore = uniquePosts.length > INITIAL_VISIBLE_COUNT;
+  const visiblePosts =
+    showAllPosts || !shouldShowLoadMore
+      ? uniquePosts
+      : uniquePosts.slice(0, INITIAL_VISIBLE_COUNT);
+
+  const toggleAccordion = (postId: string) => {
+    setExpandedPostId((prevId) => (prevId === postId ? null : postId));
+  };
 
   return (
 <>
@@ -49,6 +74,18 @@ const LatestPostsComponent = () => {
       </div>
     </section>
 </>
+      {shouldShowLoadMore && !showAllPosts && (
+        <div className="mt-6">
+          <button
+            type="button"
+            onClick={() => setShowAllPosts(true)}
+            className="motion-cta cursor-pointer rounded-lg border border-slate-300/70 bg-slate-100 px-5 py-2.5 text-sm font-semibold text-slate-800 shadow-sm hover:bg-white dark:border-white/15 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10"
+          >
+            Load More
+          </button>
+        </div>
+      )}
+    </section>
   );
 };
 
