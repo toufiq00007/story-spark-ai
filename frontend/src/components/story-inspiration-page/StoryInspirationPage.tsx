@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getBaseUrl } from '../../helpers/config';
+import StoryGeneratingAnimation from '../loading/story-generating-animation.component';
 
 const StoryInspirationPage: React.FC = () => {
   const [intro, setIntro] = useState('');
@@ -36,16 +37,26 @@ const StoryInspirationPage: React.FC = () => {
         placeholder="Enter your story intro..."
         value={intro}
         onChange={e => setIntro(e.target.value)}
+        disabled={loading}
       />
       <button
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
         onClick={fetchIdeas}
         disabled={loading || !intro.trim()}
       >
         {loading ? 'Generating...' : 'Get Ideas'}
       </button>
+
+      {/* Loading Animation */}
+      {loading && (
+        <div className="mt-6">
+          <StoryGeneratingAnimation />
+        </div>
+      )}
+
       {error && <div className="text-red-600 mt-4">{error}</div>}
-      {ideas.length > 0 && (
+
+      {!loading && ideas.length > 0 && (
         <div className="mt-6">
           <h3 className="text-xl font-semibold mb-2">Story Ideas:</h3>
           <ul className="list-disc pl-6">
