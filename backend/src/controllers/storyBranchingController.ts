@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { generateStory } from "../services/ai.service";
 import sendResponse from "../shared/send_response";
+import { storyQueue } from "../services/storyRequestQueue";
 
 const sanitizeJsonText = (rawText: string): string => {
   const trimmed = rawText.trim();
@@ -53,7 +54,7 @@ Task:
 }
 `;
 
-      const result = await generateStory(prompt);
+      const result = await storyQueue.enqueue(() => generateStory(prompt));
 
       let parsed: { storySegment: string; choices: string[] };
       try {
@@ -108,24 +109,19 @@ Task:
           segmentIndex,
         },
       });
+    } catch (error) {
+      const detail =
+        error instanceof Error ? error.message : String(error);
 
-   } catch (error) {
-  const detail =
-    error instanceof Error ? error.message : String(error);
+      console.error("[StoryBranching] generation error:", detail);
 
-  console.error("[StoryBranching] generation error:", detail);
-
-  return res.status(503).json({
-    message:
-      "Story generation is temporarily unavailable. Please try again later.",
-  });
-}
       sendResponse(res, {
         success: false,
         statusCode: 503,
-        message,
-        data: null
+        message:
+          "Story generation is temporarily unavailable. Please try again later.",
+        data: null,
       });
     }
-  }
+  },
 };

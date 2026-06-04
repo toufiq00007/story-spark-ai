@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Post } from "../../../models/post";
 import { useGetLatestListsQuery } from "../../../redux/apis/post.api";
-import { Post } from "../../../models/post";
 import LoadingAnimation from "../../loading/loading.component";
-import { useNavigate } from "react-router-dom";
 
 const INITIAL_VISIBLE_COUNT = 6;
 
@@ -12,14 +10,13 @@ const LatestPostsComponent = () => {
   const { data, isLoading, isError, refetch } = useGetLatestListsQuery(undefined);
   const navigate = useNavigate();
   const [showAllPosts, setShowAllPosts] = useState(false);
+  const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
 
-  const posts = (data?.posts ?? []) as Post[];
-  const shouldShowLoadMore = posts.length > INITIAL_VISIBLE_COUNT;
-  const visiblePosts = showAllPosts || !shouldShowLoadMore ? posts : posts.slice(0, INITIAL_VISIBLE_COUNT);
 
-  useEffect(() => {
-    setShowAllPosts(false);
-  }, [data?.posts]);
+  // Remove duplicate posts based on _id
+  const uniquePosts = Array.from(
+    new Map((data?.posts ?? []).map((post) => [post._id, post])).values(),
+  );
 
   if (isLoading) return <LoadingAnimation />;
 
@@ -40,7 +37,6 @@ const LatestPostsComponent = () => {
     );
   }
 
-  // --- STRICT DEDUPLICATION FILTERING ---
   const seenIds = new Set<string>();
   const uniquePosts = (data?.posts ?? []).filter((post: Post) => {
     if (!post?._id || seenIds.has(post._id)) return false;
@@ -48,29 +44,35 @@ const LatestPostsComponent = () => {
     return true;
   });
 
+  const shouldShowLoadMore = uniquePosts.length > INITIAL_VISIBLE_COUNT;
+  const visiblePosts =
+    showAllPosts || !shouldShowLoadMore
+      ? uniquePosts
+      : uniquePosts.slice(0, INITIAL_VISIBLE_COUNT);
+
   const toggleAccordion = (postId: string) => {
     setExpandedPostId((prevId) => (prevId === postId ? null : postId));
   };
 
   return (
-    <section className="text-slate-100">
+    <section className="w-full min-w-0 max-w-full text-slate-100">
       <h2 className="mb-6 text-2xl font-bold">Latest Posts</h2>
-      <div className="space-y-3">
-        {uniquePosts.length > 0 ? (
-          uniquePosts.map((post: Post) => {
+      <div className="max-w-full space-y-3">
+        {visiblePosts.length > 0 ? (
+          visiblePosts.map((post: Post) => {
             const isExpanded = expandedPostId === post._id;
 
             return (
               <div
                 key={post._id}
-                className="motion-card-subtle story-panel rounded-lg overflow-hidden border border-slate-700/30 bg-[#252b3d]/40 transition-all duration-200"
+                className="motion-card-subtle story-panel w-full max-w-full rounded-lg overflow-hidden border border-slate-700/30 bg-[#252b3d]/40 transition-all duration-200"
               >
                 <button
                   onClick={() => toggleAccordion(post._id)}
-                  className="w-full flex items-center justify-between p-4 text-left font-bold text-slate-100 hover:bg-slate-700/20 transition-colors"
+                  className="flex w-full min-w-0 items-center justify-between p-4 text-left font-bold text-slate-100 hover:bg-slate-700/20 transition-colors"
                 >
-                  <span className="text-lg md:text-xl pr-4">{post.title}</span>
-                  <span className="text-slate-400 font-mono text-sm transition-transform duration-200 select-none">
+                  <span className="min-w-0 pr-4 text-lg break-words md:text-xl">{post.title}</span>
+                  <span className="shrink-0 text-slate-400 font-mono text-sm transition-transform duration-200 select-none">
                     {isExpanded ? "▼" : "▶"}
                   </span>
                 </button>
@@ -80,11 +82,11 @@ const LatestPostsComponent = () => {
                     isExpanded ? "max-h-[500px] border-t border-slate-700/30" : "max-h-0"
                   }`}
                 >
-                  <div className="p-5 bg-[#1e2330]/30">
-                    <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-4 whitespace-pre-wrap">
+                  <div className="min-w-0 p-5 bg-[#1e2330]/30">
+                    <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-4 whitespace-pre-wrap break-words">
                       {post.content || "No preview content available."}
                     </p>
-                    
+
                     <div className="flex justify-end">
                       <button
                         onClick={() => navigate(`/post/${post._id}`)}
@@ -100,7 +102,9 @@ const LatestPostsComponent = () => {
           })
         ) : (
           <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/20 px-4 py-5 text-slate-500 dark:text-slate-400">
+            
             Posts are not available.
+          
           </div>
         )}
       </div>
